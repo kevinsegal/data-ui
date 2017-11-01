@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { extent } from 'd3-array';
 
-import { color } from '@data-ui/theme';
-import { Group } from '@vx/group';
-import { Line } from '@vx/shape';
+import color from '@data-ui/theme/build/color';
+import Group from '@vx/group/build/Group';
+import Line from '@vx/shape/build/shapes/Line';
 
 const propTypes = {
   fullHeight: PropTypes.bool,
@@ -24,8 +24,8 @@ const propTypes = {
   // likely injected by parent
   left: PropTypes.number,
   top: PropTypes.number,
-  xRange: PropTypes.arrayOf(PropTypes.number),
-  yRange: PropTypes.arrayOf(PropTypes.number),
+  xScale: PropTypes.func,
+  yScale: PropTypes.func,
 
 };
 
@@ -49,8 +49,8 @@ const defaultProps = {
   stroke: color.grays[7],
   strokeDasharray: '3,3',
   strokeWidth: 1,
-  xRange: [0, 0],
-  yRange: [0, 0],
+  xScale: null,
+  yScale: null,
 };
 
 function CrossHair({
@@ -68,12 +68,13 @@ function CrossHair({
   stroke,
   strokeDasharray,
   strokeWidth,
-  xRange,
-  yRange,
+  xScale,
+  yScale,
   lineStyles,
 }) {
-  const [xMin, xMax] = extent(xRange);
-  const [yMin, yMax] = extent(yRange);
+  if (!xScale || !yScale) return null;
+  const [xMin, xMax] = extent(xScale.range());
+  const [yMin, yMax] = extent(yScale.range());
   return (
     <Group>
       {showHorizontalLine && top !== null &&

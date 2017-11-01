@@ -5,7 +5,7 @@ import { Grid } from '@vx/grid';
 import { Group } from '@vx/group';
 
 import Voronoi from './Voronoi';
-import WithTooltip, { withTooltipPropTypes } from '../enhancer/WithTooltip';
+import WithTooltip, { withTooltipPropTypes } from '@data-ui/core/build/enhancer/WithTooltip';
 
 import {
   collectDataFromChildSeries,

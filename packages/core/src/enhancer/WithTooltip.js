@@ -1,17 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { localPoint } from '@vx/event';
-
-import {
-  withTooltip,
-  TooltipWithBounds,
-  withTooltipPropTypes as vxTooltipPropTypes,
-} from '@vx/tooltip';
+import localPoint from '@vx/event/build/localPoint';
+import withTooltip from '@vx/tooltip/build/enhancers/withTooltip';
+import TooltipWithBounds, { withTooltipPropTypes as vxTooltipPropTypes } from '@vx/tooltip/build/tooltips/TooltipWithBounds';
 
 export const withTooltipPropTypes = {
-  onMouseMove: PropTypes.func, // expects to be called like func({ event, datum, data })
-  onMouseLeave: PropTypes.func, // expects to be called like func({ event, datum, data })
+  onMouseMove: PropTypes.func, // expects to be called like func({ event, datum })
+  onMouseLeave: PropTypes.func, // expects to be called like func({ event, datum })
   tooltipData: PropTypes.any,
 };
 
@@ -29,7 +25,9 @@ const defaultProps = {
   className: null,
   HoverStyles: () => (
     <style type="text/css">{`
-      .vx-arc:hover {
+      .vx-arc:hover,
+      .vx-bar:hover,
+      .vx-glyph-dot:hover {
         opacity: 0.7;
       }
     `}</style>
